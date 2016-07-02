@@ -2,14 +2,24 @@ window.onload = function () {
 
 //Global Variables
 
-var wins = 0;
-var losses = 0;
+var wins;
+var losses;
 var guesses = 6;
 var lettersGuessed = [];
+var spaces = [];
 
 var words = ["NICOLE", "TODD", "DEBORAH", "KEITH", "TAYLOR"];
 
+// For Loop To Go Through Words
+for (var i =0; i < words.length; i++) {
+ console.log(words[i]);
+
+}
+
 //Shows Current Wins & Losses and appends to page
+
+wins = 0;
+losses = 0;
 
 document.querySelector('#wins').innerHTML = "Wins: " + wins;
 document.querySelector('#losses').innerHTML = "Losses: " + losses;
@@ -27,15 +37,21 @@ document.onkeyup = function(event) {
 	document.querySelector('#guesses').innerHTML = "Guesses: " + guesses;
 	guesses--;
 
-	// console.log(userGuess);
 	// Pushes typed letters on guessed letters div
 	document.querySelector(".guessedLetters").innerHTML = "Letters Guessed: " + "<br>" + lettersGuessed;
-	if (guesses <= -1) {
 
+	if (guesses <= -1) {
+		losses++;
+		document.querySelector('#losses').innerHTML = "Losses: " + losses;
 		alert('You Lost!');
 		reset();
-	} else {
-
+		
+		
+	} else if (keypress === word) {
+		wins++;
+		document.querySelector('#wins').innerHTML = "Wins: " + wins;
+		alert('You Win!');
+		reset();
 
 	}
 
@@ -50,11 +66,18 @@ document.onkeyup = function(event) {
 
 function reset() {
 
-	window.location.href = "index.html";
 	var guesses = 6;
+	newWord();
 
 }
 
+function newWord() {
+	boxes = [];
+	boxes.push('_');
 
+	var word = Math.floor(Math.random() * words.length);
+	console.log(words[word]);
+
+}
 
 }
