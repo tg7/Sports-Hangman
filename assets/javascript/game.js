@@ -6,13 +6,13 @@ var wins;
 var losses;
 var guesses = 6;
 var lettersGuessed = [];
-var spaces = [];
+var popUpWord = document.querySelector(".word").innerHTML
 
 var words = ["NICOLE", "TODD", "DEBORAH", "KEITH", "TAYLOR"];
 
 // For Loop To Go Through Words
 for (var i =0; i < words.length; i++) {
- console.log(words[i]);
+ // console.log(words[i]);
 
 }
 
@@ -31,6 +31,7 @@ document.onkeyup = function(event) {
   
   var keypress = String.fromCharCode(event.keyCode).toLowerCase();
 
+  makeBoxes();
 	lettersGuessed.push(keypress + "  ");
 		console.log(lettersGuessed);
 
@@ -63,21 +64,47 @@ document.onkeyup = function(event) {
 
 //Shows userGuess and appends it to the Letters Guessed Div
 
+newWord();
+
+function newWord() {
+
+	var word = Math.floor(Math.random() * words.length);
+	
+	guesses = 6;
+
+	var boxes = [];
+	console.log(words[word]);
+
+	for (var i = 0; i < word.length; i++) {
+		if ( keypress ===word[i]) {
+			boxes[i] = word[i];
+			console.log(boxes[i]);
+			console.log(word[i]);
+		}
+
+	}
+
+}
+
+function makeBoxes () {
+popUpWord = "Word" + "<br>" + "<br> The Word Is: " + words[word];
+for (var i = 0; i < word.length; i++) {
+		if ( keypress === word[i]) {
+			boxes[i] = word[i];
+	
+		}
+
+	}
+
+}
 
 function reset() {
 
 	var guesses = 6;
+	guesses = document.querySelector('#guesses').innerHTML;
 	newWord();
 
 }
 
-function newWord() {
-	boxes = [];
-	boxes.push('_');
-
-	var word = Math.floor(Math.random() * words.length);
-	console.log(words[word]);
-
-}
-
+console.log(popUpWord);
 }
