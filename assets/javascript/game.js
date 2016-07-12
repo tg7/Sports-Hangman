@@ -7,6 +7,7 @@ var lettersGuessed = [];
 var boxes = [];
 var words = ["mets", "phillies", "dodgers", "yankees"];
 var answer = words[Math.floor(Math.random() * words.length)];
+var guesses = 8;
 
 console.log('The Word Is: ' + answer);
 
@@ -26,6 +27,9 @@ makeBoxes();
 document.onkeyup = function(event) {
   
   var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+
+  // Subtracts guess on each letter pressed
+  guesses--;
 	
 	// Pushes userGuess to lettersGuessed Array
   lettersGuessed.push(userGuess);
@@ -48,7 +52,20 @@ document.onkeyup = function(event) {
 		  	boxes[i] = answer[i];
 		  	// joinedAnswer = boxes.join('_');
 		  	document.getElementById('word').innerHTML = "The Word Is: " + boxes;
-		  	console.log('You guessed right!');
+		  	// console.log('You guessed right!');
+
+		  } 
+		  var completeWord = boxes.join('')
+		
+		  if (completeWord === answer) {
+		  	wins++;
+		  	alert('You Guessed The Word: ' + answer);
+
+		  } 
+
+		  if (guesses <= 0) {
+		  	losses++;
+		  	alert('You Lost! The Correct Word Was ' + answer);
 
 		  }
 
