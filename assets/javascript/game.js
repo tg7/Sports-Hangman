@@ -4,26 +4,23 @@ window.onload = function () {
 var wins;
 var losses;
 var lettersGuessed = [];
-	
-
+var boxes = [];
 var words = ["mets", "phillies", "dodgers", "yankees"];
 var answer = words[Math.floor(Math.random() * words.length)];
 
 console.log('The Word Is: ' + answer);
 
+function makeBoxes() {
 
+	for (var i = 0; i < answer.length; i++) {
+		boxes.push('_');
+		document.getElementById('word').innerHTML = "The Word Is: " + boxes;
+	}
+ 
+}
 
-
-
-
-
-
-
-
-
-
-
-
+// Calls makeBoxes Function
+makeBoxes();
 
 //Keypress Function
 document.onkeyup = function(event) {
@@ -44,9 +41,13 @@ document.onkeyup = function(event) {
 
   //Pushes pressed key to the letters guessed array
   
+
   for (var i = 0; i < answer.length; i++) {
   		
 		  if (userGuess === answer[i]) {
+		  	boxes[i] = answer[i];
+		  	// joinedAnswer = boxes.join('_');
+		  	document.getElementById('word').innerHTML = "The Word Is: " + boxes;
 		  	console.log('You guessed right!');
 
 		  }
