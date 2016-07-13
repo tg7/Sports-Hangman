@@ -5,9 +5,12 @@ var wins;
 var losses;
 var lettersGuessed = [];
 var boxes = [];
-var words = ["mets", "phillies", "dodgers", "yankees"];
+var words = ["METS", "PHILLIES", "DODGERS", "YANKEES"];
 var answer = words[Math.floor(Math.random() * words.length)];
 var guesses = 8;
+
+//ID Element Variables
+var switchBoxes = document.getElementById('word');
 
 console.log('The Word Is: ' + answer);
 
@@ -15,9 +18,22 @@ function makeBoxes() {
 
 	for (var i = 0; i < answer.length; i++) {
 		boxes.push('_');
-		document.getElementById('word').innerHTML = "The Word Is: " + boxes;
+		switchBoxes.innerHTML = "The Word Is: " + boxes;
 	}
  
+}
+
+function resetGame() {
+
+	boxes = makeBoxes();
+	switchBoxes.innerHTML = "The Word Is: " + boxes;
+	answer = randomWord();
+
+}
+
+function randomWord() {
+
+	
 }
 
 // Calls makeBoxes Function
@@ -26,7 +42,7 @@ makeBoxes();
 //Keypress Function
 document.onkeyup = function(event) {
   
-  var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
+  var userGuess = String.fromCharCode(event.keyCode).toUpperCase();
 
   // Subtracts guess on each letter pressed
   guesses--;
@@ -55,17 +71,20 @@ document.onkeyup = function(event) {
 		  	// console.log('You guessed right!');
 
 		  } 
+		  
 		  var completeWord = boxes.join('')
 		
 		  if (completeWord === answer) {
 		  	wins++;
 		  	alert('You Guessed The Word: ' + answer);
+		  	resetGame();
 
 		  } 
 
 		  if (guesses <= 0) {
 		  	losses++;
 		  	alert('You Lost! The Correct Word Was ' + answer);
+		  	resetGame();
 
 		  }
 
