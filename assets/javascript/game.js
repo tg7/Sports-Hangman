@@ -3,41 +3,44 @@ window.onload = function () {
 //Global Variables
 var wins;
 var losses;
-var lettersGuessed = [];
-var boxes = [];
+var lettersGuessed;
+var boxes;
 var words = ["METS", "PHILLIES", "DODGERS", "YANKEES"];
-var answer = words[Math.floor(Math.random() * words.length)];
-var guesses = 8;
+var answer;
+var guesses;
+var start = null;
 
 //ID Element Variables
 var switchBoxes = document.getElementById('word');
+var switchLetters = document.getElementById('letters');
+var switchWins = document.getElementById('wins');
+var switchLosses = document.getElementById('losses');
+var switchGuesses = document.getElementById('guesses');
 
-console.log('The Word Is: ' + answer);
 
 function makeBoxes() {
-
 	for (var i = 0; i < answer.length; i++) {
 		boxes.push('_');
 		switchBoxes.innerHTML = "The Word Is: " + boxes;
+    switchLetters.innerHTML = "Letters Guessed: ";
+    wins = switchWins.innerHTML;
+    losses = switchLosses.innerHTML;
 	}
  
 }
 
-function resetGame() {
+function startGame() {
+  lettersGuessed = [];
+  boxes = [];
+  answer = words[Math.floor(Math.random() * words.length)];
+  console.log('The Word Is: ' + answer);
+  makeBoxes();
+  guesses = 8;
 
-	boxes = makeBoxes();
-	switchBoxes.innerHTML = "The Word Is: " + boxes;
-	answer = randomWord();
-
-}
-
-function randomWord() {
-
-	
 }
 
 // Calls makeBoxes Function
-makeBoxes();
+startGame();
 
 //Keypress Function
 document.onkeyup = function(event) {
@@ -54,20 +57,19 @@ document.onkeyup = function(event) {
   var userGuesses = lettersGuessed.join(' ');
 
   // Appends userGuesses to guessed div
-  document.getElementById('guessed').innerHTML = "Letters Guessed: " + userGuesses;
+  switchLetters.innerHTML = "Letters Guessed: " + userGuesses;
   
   console.log(lettersGuessed);
   console.log(userGuess);
 
   //Pushes pressed key to the letters guessed array
   
-
   for (var i = 0; i < answer.length; i++) {
   		
 		  if (userGuess === answer[i]) {
 		  	boxes[i] = answer[i];
 		  	// joinedAnswer = boxes.join('_');
-		  	document.getElementById('word').innerHTML = "The Word Is: " + boxes;
+		  	switchBoxes.innerHTML = "The Word Is: " + boxes;
 		  	// console.log('You guessed right!');
 
 		  } 
@@ -77,14 +79,14 @@ document.onkeyup = function(event) {
 		  if (completeWord === answer) {
 		  	wins++;
 		  	alert('You Guessed The Word: ' + answer);
-		  	resetGame();
+		  	startGame();
 
 		  } 
 
 		  if (guesses <= 0) {
 		  	losses++;
 		  	alert('You Lost! The Correct Word Was ' + answer);
-		  	resetGame();
+		  	startGame();
 
 		  }
 
